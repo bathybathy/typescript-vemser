@@ -3,7 +3,7 @@ import { useEffect, useState, useContext } from "react"
 import api from "../../api"
 import { AuthContext } from "../../context/AuthContext"
 import { PessoaDTO } from "../../model/PessoaDTO"
-import { ContainerList, Table, Tr, Td, Th } from "./Users.styles"
+import { ContainerList, DivTitle, TdNome, Table, Tr, Td, Th, TitleUsers, ContainerUsers } from "./Users.styles"
 
 function Users() {
   const [users, setUsers] = useState<PessoaDTO['pessoa']>([])
@@ -29,6 +29,10 @@ function Users() {
   }
 
   return (
+    <ContainerUsers>
+    <DivTitle>
+      <TitleUsers>Usuários</TitleUsers>
+    </DivTitle>
     <ContainerList>
       <Table>
         <thead>
@@ -42,9 +46,9 @@ function Users() {
         <tbody>
          {users.map((pessoa) =>(
           <Tr key={pessoa.idPessoa}>
-            <Td>
+            <TdNome>
               {pessoa.nome}
-            </Td>
+            </TdNome>
             <Td>
               {pessoa.dataNascimento}
             </Td>
@@ -59,6 +63,7 @@ function Users() {
       </tbody>
       </Table> 
    </ContainerList>
+   </ContainerUsers>
   )
 }
 

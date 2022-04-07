@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
+import './Routers.css'
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
 import Home from "./pages/home/Home"
@@ -11,18 +12,20 @@ import AuthProvider from "./context/AuthContext"
 
 function Routers() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Header />
-        <Routes>
-          <Route path='*' element={ <NotFound />} />
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/users' element={<Users /> } />
-          <Route path='/address' element={ <Address /> } />
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+    <div className={'fullPage'}>
+      <BrowserRouter>
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path='*' element={ <NotFound />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/users' element={<Users /> } />
+            <Route path='/address' element={ <Address /> } />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </div>
   )
 }
 

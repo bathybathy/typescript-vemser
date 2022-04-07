@@ -1,15 +1,15 @@
 
-import { Link } from 'react-router-dom'
+import { LiHeader, LinkHeader, UlNav } from './Header.styles'
 
 function Menu() {
 
   return (
     <nav>
-        <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/users'>Usuários</Link></li>
-            <li><Link to='/address'>Endereços</Link></li>
-        </ul>
+        <UlNav>
+            <LiHeader><LinkHeader to='/'>Home</LinkHeader></LiHeader>
+            <LiHeader><LinkHeader to='/users'>Usuários</LinkHeader></LiHeader>
+            <LiHeader><LinkHeader to='/address'>Endereços</LinkHeader></LiHeader>
+        </UlNav>
     </nav>
   )
 }
