@@ -21,7 +21,6 @@ function Routers() {
           <Route path='/users' element={<Users /> } />
           <Route path='/address' element={ <Address /> } />
         </Routes>
-        <Footer />
       </AuthProvider>
     </BrowserRouter>
   )

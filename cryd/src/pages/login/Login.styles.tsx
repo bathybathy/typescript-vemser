@@ -34,6 +34,7 @@ export const ContainerForm = styled.div`
     padding: 30px;
     align-items: center;
     justify-content: center;
+    border-radius: 8px;
 `
 
 export const LabelForm = styled.label`
