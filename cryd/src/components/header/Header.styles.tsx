@@ -5,6 +5,7 @@ import { FaHome, FaUsers, FaMapMarkedAlt } from 'react-icons/fa';
 
 export const HeaderSide = styled.header`
     width: 13%;
+    height: 100vh;
     min-height: 100% !important;
     background-color: rgba(54, 55, 64, 1);
 `

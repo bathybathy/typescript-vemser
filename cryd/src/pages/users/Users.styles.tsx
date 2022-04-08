@@ -6,7 +6,7 @@ export const ContainerUsers = styled.div`
 `
 
 export const ContainerList = styled.div`
-    width: 85%;
+    width: 80%;
     border: 1px solid rgba(223, 224, 235, 1); 
     border-radius: 8px;
     display: flex;
@@ -48,7 +48,7 @@ export const Td = styled.td`
     height: 50px;
 `
 export const TdNome = styled.td`
-    width: 300px;
+    width: 350px;
     padding: 10px;
     color: rgba(37, 39, 51, 1);
     font-weight: 600px;
