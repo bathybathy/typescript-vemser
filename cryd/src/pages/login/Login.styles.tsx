@@ -64,6 +64,10 @@ export const ButtonForm = styled.button`
     color: #FFF;
     height: 50px;
     width: 300px;
+    border: 1px #3751FF solid;
+    :hover{
+        cursor: pointer;
+    }
 `
 
 export const LogoImg = styled.img.attrs({

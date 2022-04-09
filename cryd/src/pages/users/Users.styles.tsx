@@ -11,13 +11,14 @@ export const ContainerList = styled.div`
     border-radius: 8px;
     display: flex;
     justify-content: center;
-    margin: 30px 0;
 `
 export const DivTitle = styled.div`
     width: 85%;
 `
 export const TitleUsers = styled.h1`
     font-size: 24px;
+    color: rgba(54, 55, 64, 1);
+    padding: 0;
     
 `
 
