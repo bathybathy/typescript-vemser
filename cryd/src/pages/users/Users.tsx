@@ -19,6 +19,7 @@ import {
   BsPencilStyled,
   ContainerAddressPage,
   AiOutlineDeleteStyled,
+  DivErro
 } from "../address/Address.styles";
 import {
   InputForm,
@@ -26,13 +27,14 @@ import {
   ButtonForm
 } from '../login/Login.styles'
 import { DivForm } from "../login/Login.styles";
+import * as Yup from 'yup'
 
 function Users() {
   const [users, setUsers] = useState<PessoaDTO["pessoa"]>([]);
   const [loading, setLoading] = useState(true);
   const [atualizar, setAtualizar] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>();
-  import * as Yup from 'yup';
+  
 
   useEffect(() => {
     getUsers();
@@ -130,34 +132,17 @@ function Users() {
       .min(3, 'Muito curto')
       .max(50, 'Muito longo')
       .required('Campo obrigatório'),
-      cep: Yup.string()
-      .min(9, 'muito curto')
-      .max(9, 'muito longo')
+      dataNascimento: Yup.string()
+      .min(10, 'Data de nascimento inválida')
+      .max(10, 'Data de nascimento inválida')
       .required('Campo obrigatório'),
-      bairro: Yup.string()
-      .min(3, 'muito curto')
-      .max(50, 'muito longo')
+      cpf: Yup.string()
+      .min(11, 'CPF inválido')
+      .max(11, 'CPF inválido')
       .required('Campo obrigatório'),
-      localidade: Yup.string()
-      .min(3, 'muito curto')
-      .max(30, 'muito longo')
+      email: Yup.string()
+      .email('E-mail inválido')
       .required('Campo obrigatório'),
-      numero: Yup.string()
-      .min(1, 'muito curto')
-      .max(10, 'muito longo')
-      .required('Campo obrigatório'),
-      complemento: Yup.string()
-      .min(1, 'muito curto')
-      .max(10, 'muito longo'),
-      uf: Yup.string()
-      .min(2, 'muito curto')
-      .max(2, 'muito longo')
-      .required('Campo obrigatório'),
-      pais: Yup.string()
-      .min(3, 'muito curto')
-      .max(40, 'muito longo')
-      .required('Campo obrigatório'),
-      
   });
 
   // formik 
@@ -202,6 +187,9 @@ function Users() {
                 value={formikProps.values.nome}
                 onChange={formikProps.handleChange}
               />
+              {formikProps.errors.nome && formikProps.touched.nome ? (
+                <DivErro>{formikProps.errors.nome}</DivErro>
+                ) : null}
             </DivForm>
 
             <DivForm>
@@ -213,6 +201,9 @@ function Users() {
                 value={formikProps.values.dataNascimento}
                 onChange={formikProps.handleChange}
               />
+              {formikProps.errors.dataNascimento && formikProps.touched.dataNascimento ? (
+                <DivErro>{formikProps.errors.dataNascimento}</DivErro>
+                ) : null}
             </DivForm>
 
             <DivForm>
@@ -224,6 +215,9 @@ function Users() {
                 value={formikProps.values.cpf}
                 onChange={formikProps.handleChange}
               />
+              {formikProps.errors.cpf && formikProps.touched.cpf ? (
+                <DivErro>{formikProps.errors.cpf}</DivErro>
+                ) : null}
             </DivForm>
 
             <DivForm>
@@ -235,8 +229,11 @@ function Users() {
                 value={formikProps.values.email}
                 onChange={formikProps.handleChange}
               />
+              {formikProps.errors.email && formikProps.touched.email ? (
+                <DivErro>{formikProps.errors.email}</DivErro>
+                ) : null}
             </DivForm>
-            <ButtonForm type="submit">Submit</ButtonForm>
+            <ButtonForm type="submit">Salvar</ButtonForm>
           </form>
         </ContainerForm>
         <DivTitle>

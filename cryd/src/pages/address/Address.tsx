@@ -229,7 +229,7 @@ export const Address: React.FC<{}> = () => {
                 onChange={formikProps.handleChange}
               />
               {formikProps.errors.cep && formikProps.touched.cep ? (
-                <div>{formikProps.errors.cep}</div>
+                <DivErro>{formikProps.errors.cep}</DivErro>
                 ) : null}
 
               <ButtonForm

@@ -8,6 +8,7 @@ export const HeaderSide = styled.header`
     height: 100vh;
     min-height: 100% !important;
     background-color: rgba(54, 55, 64, 1);
+    position: fixed;
 `
 
 export const LiHeader = styled.li`
