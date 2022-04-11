@@ -30,6 +30,7 @@ import {
   TitleUsers,
   ContainerUsers,
 } from "../users/Users.styles";
+import InputMask from "react-input-mask";
 
 import { DivForm, ButtonForm, InputForm, LabelForm } from "../login/Login.styles";
 
@@ -146,6 +147,7 @@ export const Address: React.FC<{}> = () => {
       const { data } = await api.put("/endereco/650", newAddress);
       console.log(data);
       alert("cadastro realizado com sucesso");
+      formikProps.resetForm();
     } catch (error) {
       console.log(error);
     }
@@ -222,6 +224,8 @@ export const Address: React.FC<{}> = () => {
             <DivCenter>
               <LabelCep htmlFor="cep">CEP:</LabelCep>
               <InputForm
+                as={InputMask}
+                mask="99999-999"
                 id="cep"
                 name="cep"
                 placeholder="Digite seu cep"

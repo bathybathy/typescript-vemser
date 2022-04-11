@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import Menu from "./Menu"
-import { HeaderSide, ButtonLogout, LogoImg, LogoDiv } from './Header.styles'
+import { HeaderContainer, HeaderSide, ButtonLogout, LogoImg, LogoDiv } from './Header.styles'
 
 function Header() {
   const {handleLogout, isToken} = useContext<any>(AuthContext)
@@ -11,11 +11,13 @@ function Header() {
     <>
     {isToken && 
       <HeaderSide>
-        <LogoDiv>
-        <LogoImg />
-        </LogoDiv>
-        <Menu />
-        <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
+        <HeaderContainer>
+          <LogoDiv>
+          <LogoImg />
+          </LogoDiv>
+          <Menu />
+          <ButtonLogout onClick={handleLogout}>Logout</ButtonLogout>
+        </HeaderContainer>
       </HeaderSide>
     }
     </>

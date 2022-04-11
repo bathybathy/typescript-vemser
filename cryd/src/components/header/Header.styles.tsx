@@ -4,11 +4,9 @@ import logovemser from '../../images/logovemser.png'
 import { FaHome, FaUsers, FaMapMarkedAlt } from 'react-icons/fa';
 
 export const HeaderSide = styled.header`
-    width: 13%;
-    height: 100vh;
-    min-height: 100% !important;
+    width: 20%;
+    min-height: 100vh;
     background-color: rgba(54, 55, 64, 1);
-    position: fixed;
 `
 
 export const LiHeader = styled.li`
@@ -61,4 +59,8 @@ export const ButtonLogout = styled.button`
     height: 40px;
     width: 150px;
     border: 1px #3751FF solid;
+`
+export const HeaderContainer = styled.div`
+    position: fixed;
+    height: 100%;
 `

@@ -27,7 +27,9 @@ import {
   ButtonForm
 } from '../login/Login.styles'
 import { DivForm } from "../login/Login.styles";
-import * as Yup from 'yup'
+import * as Yup from 'yup';
+import InputMask from 'react-input-mask'
+import moment from "moment";
 
 function Users() {
   const [users, setUsers] = useState<PessoaDTO["pessoa"]>([]);
@@ -57,24 +59,27 @@ function Users() {
     window.location.reload();
   };
 
-  // create new user
+  // creates new user
   const postNewUser = async (values:any) => {
+    let nascimentoEnviar = moment(values.dataNascimento, 'DD-MM-YYYY').format('YYYY-MM-DD');
+    let cpfEnviar = formikProps.values.cpf.replaceAll(".", "").replaceAll('-', '');
     const newUser = {
       nome: values.nome,
-      dataNascimento: values.dataNascimento,
-      cpf: values.cpf,
+      dataNascimento: nascimentoEnviar,
+      cpf: cpfEnviar,
       email: values.email,
     };
     try {
       const { data } = await api.post("/pessoa", newUser);
       console.log(data);
       alert("cadastro realizado com sucesso");
+      formikProps.resetForm();
     } catch (error) {
       console.log(error);
     }
   };
 
-  // delete user
+  // deletes user
   const deleteUser = async (id: number) => {
     try {
       const { data } = await api.delete(`/pessoa/${id}`);
@@ -90,7 +95,8 @@ function Users() {
       const { data } = await api.get(`pessoa/{idPessoa}?idPessoa=${id}`);
       console.log(data);
       formikProps.setFieldValue("nome", data.nome);
-      formikProps.setFieldValue("dataNascimento", data.dataNascimento);
+      let nascimentoEnviar = moment(data.dataNascimento, 'YYYY-MM-DD').format('DD-MM-YYYY')
+      formikProps.setFieldValue("dataNascimento", nascimentoEnviar);
       formikProps.setFieldValue("cpf", data.cpf);
       formikProps.setFieldValue("complemento", data.complemento);
       formikProps.setFieldValue("email", data.email);
@@ -101,11 +107,14 @@ function Users() {
 
   // posts update to api
   const updateUser = async () => {
+    let nascimentoEnviar = moment(formikProps.values.dataNascimento, 'DD-MM-YYYY').format('YYYY-MM-DD')
+    let cpfEnviar = formikProps.values.cpf.replaceAll(".", "");
+    cpfEnviar= cpfEnviar.replaceAll('-', '');
     const updatedUser = {
       nome: formikProps.values.nome,
-      cpf: formikProps.values.cpf,
+      cpf: cpfEnviar,
       email: formikProps.values.email,
-      dataNascimento: formikProps.values.dataNascimento,
+      dataNascimento: nascimentoEnviar,
       idPessoa: idUpdate,
     };
     try {
@@ -136,10 +145,7 @@ function Users() {
       .min(10, 'Data de nascimento inválida')
       .max(10, 'Data de nascimento inválida')
       .required('Campo obrigatório'),
-      cpf: Yup.string()
-      .min(11, 'CPF inválido')
-      .max(11, 'CPF inválido')
-      .required('Campo obrigatório'),
+      cpf: Yup.string().required('Campo obrigatório'),
       email: Yup.string()
       .email('E-mail inválido')
       .required('Campo obrigatório'),
@@ -195,6 +201,8 @@ function Users() {
             <DivForm>
               <LabelForm htmlFor="dataNascimento">Data de nascimento:</LabelForm>
               <InputForm
+                as={InputMask}
+                mask="99/99/9999"
                 id="dataNascimento"
                 name="dataNascimento"
                 placeholder="Digite sua data de nascimento"
@@ -210,6 +218,8 @@ function Users() {
               <LabelForm htmlFor="cpf">CPF:</LabelForm>
               <InputForm
                 id="cpf"
+                as={InputMask}
+                mask="999.999.999-99"
                 name="cpf"
                 placeholder="Digite o número do seu CPF"
                 value={formikProps.values.cpf}
