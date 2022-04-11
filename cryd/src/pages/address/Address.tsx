@@ -5,6 +5,7 @@ import api from "../../api";
 import { EnderecoDTO } from "../../model/EnderecoDTO";
 import { useRef } from "react";
 import * as Yup from 'yup';
+import Error from "../../components/Error";
 
 import {
   ContainerForm,
@@ -63,6 +64,7 @@ export const Address: React.FC<{}> = () => {
           refresh();
         } catch (error) {
           console.log(error);
+          <Error />
         }
       })
   };
@@ -71,7 +73,6 @@ export const Address: React.FC<{}> = () => {
   const getAddressById = async (id: number) => {
     try {
       const { data } = await api.get(`endereco/${id}`);
-      console.log(data);
       formikProps.setFieldValue("logradouro", data.logradouro);
       formikProps.setFieldValue("localidade", data.cidade);
       formikProps.setFieldValue("uf", data.estado);
@@ -81,6 +82,7 @@ export const Address: React.FC<{}> = () => {
       formikProps.setFieldValue("pais", data.pais);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -89,7 +91,6 @@ export const Address: React.FC<{}> = () => {
     getAddressById(id);
     setAtualizar(true);
     setIdUpdate(id);
-    console.log(id);
   };
   // sends the updated address to api
   const updateAddress = async () => {
@@ -111,6 +112,7 @@ export const Address: React.FC<{}> = () => {
       setAtualizar(false);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -122,6 +124,7 @@ export const Address: React.FC<{}> = () => {
       Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -131,13 +134,13 @@ export const Address: React.FC<{}> = () => {
       const { data } = await axios.get(
         `https://viacep.com.br/ws/${values}/json/`
       );
-      console.log(data);
       formikProps.setFieldValue("logradouro", data.logradouro);
       formikProps.setFieldValue("bairro", data.bairro);
       formikProps.setFieldValue("localidade", data.localidade);
       formikProps.setFieldValue("uf", data.uf);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -155,11 +158,11 @@ export const Address: React.FC<{}> = () => {
     };
     try {
       const { data } = await api.put("/endereco/650", newAddress);
-      console.log(data);
       Notiflix.Notify.success("cadastro realizado com sucesso");
       formikProps.resetForm();
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -212,7 +215,6 @@ export const Address: React.FC<{}> = () => {
       numero: "",
     },
     onSubmit: async (values: any, actions: any) => {
-      console.log(atualizar);
       if (!atualizar) {
         await postAddress(values);
       }

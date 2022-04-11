@@ -31,6 +31,7 @@ import * as Yup from 'yup';
 import InputMask from 'react-input-mask'
 import moment from "moment";
 import Notiflix from "notiflix";
+import Error from "../../components/Error";
 
 function Users() {
   const [users, setUsers] = useState<PessoaDTO["pessoa"]>([]);
@@ -52,9 +53,9 @@ function Users() {
       Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
-  console.log(users);
 
   // refreshes page
   const refresh = () => {
@@ -73,11 +74,11 @@ function Users() {
     };
     try {
       const { data } = await api.post("/pessoa", newUser);
-      console.log(data);
       Notiflix.Notify.success("Cadastro realizado com sucesso");
       formikProps.resetForm();
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -94,6 +95,7 @@ function Users() {
           refresh();
         } catch (error) {
           console.log(error);
+          <Error />
         }
       },
     )
@@ -104,7 +106,6 @@ function Users() {
   const getUserById = async (id: number) => {
     try {
       const { data } = await api.get(`pessoa/{idPessoa}?idPessoa=${id}`);
-      console.log(data);
       formikProps.setFieldValue("nome", data.nome);
       let nascimentoEnviar = moment(data.dataNascimento, 'YYYY-MM-DD').format('DD-MM-YYYY')
       formikProps.setFieldValue("dataNascimento", nascimentoEnviar);
@@ -113,6 +114,7 @@ function Users() {
       formikProps.setFieldValue("email", data.email);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -135,6 +137,7 @@ function Users() {
       setAtualizar(false);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
 
@@ -143,7 +146,6 @@ function Users() {
     getUserById(id);
     setAtualizar(true);
     setIdUpdate(id);
-    console.log(id);
   };
 
   // validação
@@ -171,7 +173,6 @@ function Users() {
       email: "",
     },
     onSubmit: async (values: any, actions: any) => {
-      console.log(atualizar);
       if (!atualizar) {
         await postNewUser(values);
       }

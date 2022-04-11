@@ -10,6 +10,7 @@ import {
  import api from '../../api';
  import { PessoaDTO } from '../../model/PessoaDTO';
  import Notiflix from 'notiflix';
+ import Error from '../../components/Error';
 
 
 function Home() {
@@ -31,6 +32,7 @@ function Home() {
       Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
   const listAddress = async () => {
@@ -39,6 +41,7 @@ function Home() {
       setLista(data);
     } catch (error) {
       console.log(error);
+      <Error />
     }
   };
   
