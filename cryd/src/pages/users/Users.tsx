@@ -37,11 +37,10 @@ function Users() {
   const [loading, setLoading] = useState(true);
   const [atualizar, setAtualizar] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>();
-  
 
   useEffect(() => {
     getUsers();
-    setLoading(false);
+    
   }, []);
 
   // lists all users
@@ -49,6 +48,8 @@ function Users() {
     try {
       const { data } = await api.get<PessoaDTO["pessoa"]>("/pessoa");
       setUsers(data);
+      setLoading(false);
+      Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
     }
@@ -183,7 +184,7 @@ function Users() {
   });
 
   if (loading) {
-    return <h1>Loading</h1>;
+    Notiflix.Loading.hourglass();
   }
 
   return (

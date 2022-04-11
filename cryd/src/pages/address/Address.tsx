@@ -38,9 +38,11 @@ export const Address: React.FC<{}> = () => {
   const [lista, setLista] = useState<any>([]);
   const [atualizar, setAtualizar] = useState<boolean>(false);
   const [idUpdate, setIdUpdate] = useState<number>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     listAddress();
+    setLoading(false);
   }, []);
 
   // refreshes page
@@ -117,6 +119,7 @@ export const Address: React.FC<{}> = () => {
     try {
       const { data } = await api.get("/endereco");
       setLista(data);
+      Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
     }
@@ -219,6 +222,10 @@ export const Address: React.FC<{}> = () => {
       actions.setSubmitting(false);
     }, validationSchema: SignupSchema
   });
+
+  if(loading){
+    Notiflix.Loading.hourglass();
+  }
 
   return (
     <ContainerAddressPage>

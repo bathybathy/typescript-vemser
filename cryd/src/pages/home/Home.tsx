@@ -9,23 +9,26 @@ import {
  } from './Home.styles'
  import api from '../../api';
  import { PessoaDTO } from '../../model/PessoaDTO';
+ import Notiflix from 'notiflix';
 
 
 function Home() {
 
   const [users, setUsers] = useState<PessoaDTO["pessoa"]>([]);
-  
   const [lista, setLista] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(()=>{
     getUsers();
     listAddress();
+    setLoading(false);
   },[])
 
   const getUsers = async () => {
     try {
       const { data } = await api.get<PessoaDTO["pessoa"]>("/pessoa");
       setUsers(data);
+      Notiflix.Loading.remove();
     } catch (error) {
       console.log(error);
     }
@@ -38,6 +41,10 @@ function Home() {
       console.log(error);
     }
   };
+  
+  if(loading){
+    Notiflix.Loading.hourglass();
+  }
 
   return (
     <Container>
