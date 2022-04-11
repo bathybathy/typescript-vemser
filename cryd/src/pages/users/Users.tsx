@@ -30,6 +30,7 @@ import { DivForm } from "../login/Login.styles";
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask'
 import moment from "moment";
+import Notiflix from "notiflix";
 
 function Users() {
   const [users, setUsers] = useState<PessoaDTO["pessoa"]>([]);
@@ -72,7 +73,7 @@ function Users() {
     try {
       const { data } = await api.post("/pessoa", newUser);
       console.log(data);
-      alert("cadastro realizado com sucesso");
+      Notiflix.Notify.success("Cadastro realizado com sucesso");
       formikProps.resetForm();
     } catch (error) {
       console.log(error);
@@ -81,12 +82,21 @@ function Users() {
 
   // deletes user
   const deleteUser = async (id: number) => {
-    try {
-      const { data } = await api.delete(`/pessoa/${id}`);
-      refresh();
-    } catch (error) {
-      console.log(error);
-    }
+    Notiflix.Confirm.show(
+      "Confirmação",
+      "Você deseja deletar esse usuário?",
+      "Sim", 
+      "Não",
+      async () => {
+        try {
+          const { data } = await api.delete(`/pessoa/${id}`);
+          refresh();
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    )
+    
   };
 
   // gets one user by their id
@@ -119,7 +129,7 @@ function Users() {
     };
     try {
       const { data } = await api.put(`/pessoa/${idUpdate}`, updatedUser);
-      alert("cadastro editado com sucesso");
+      Notiflix.Notify.success("Cadastro editado com sucesso");
       formikProps.resetForm();
       setAtualizar(false);
     } catch (error) {
@@ -177,7 +187,7 @@ function Users() {
   }
 
   return (
-    <ContainerUsers>
+    <ContainerAddressPage>
       <ContainerUsers>
         <DivTitle>
           <TitleUsers>Cadastrar Usuário</TitleUsers>
@@ -284,7 +294,7 @@ function Users() {
           </Table>
         </ContainerList>
       </ContainerUsers>
-    </ContainerUsers>
+    </ContainerAddressPage>
   );
 }
 

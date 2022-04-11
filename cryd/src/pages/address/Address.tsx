@@ -31,7 +31,7 @@ import {
   ContainerUsers,
 } from "../users/Users.styles";
 import InputMask from "react-input-mask";
-
+import Notiflix from "notiflix";
 import { DivForm, ButtonForm, InputForm, LabelForm } from "../login/Login.styles";
 
 export const Address: React.FC<{}> = () => {
@@ -50,12 +50,19 @@ export const Address: React.FC<{}> = () => {
 
   // deletes address from list
   const deleteAddress = async (id: number) => {
-    try {
-      const { data } = await api.delete(`/endereco/${id}`);
-      refresh();
-    } catch (error) {
-      console.log(error);
-    }
+    Notiflix.Confirm.show(
+      "Confirmação",
+      "Você deseja deletar esse endereço?",
+      "Sim", 
+      "Não",
+      async () => {
+        try {
+          const { data } = await api.delete(`/endereco/${id}`);
+          refresh();
+        } catch (error) {
+          console.log(error);
+        }
+      })
   };
 
   //gets one address from api to set it up on inputs
@@ -85,7 +92,7 @@ export const Address: React.FC<{}> = () => {
   // sends the updated address to api
   const updateAddress = async () => {
     const updatedAddress = {
-      cep: formikProps.values.cep,
+      cep: formikProps.values.cep.replaceAll("-", ""),
       cidade: formikProps.values.localidade,
       complemento: formikProps.values.complemento,
       estado: formikProps.values.uf,
@@ -97,7 +104,7 @@ export const Address: React.FC<{}> = () => {
     };
     try {
       const { data } = await api.put(`/endereco/${idUpdate}`, updatedAddress);
-      alert("cadastro editado com sucesso");
+      Notiflix.Notify.success("Cadastro editado com sucesso");
       formikProps.resetForm();
       setAtualizar(false);
     } catch (error) {
@@ -134,7 +141,7 @@ export const Address: React.FC<{}> = () => {
   // posts a new address to the api
   const postAddress = async (values: EnderecoDTO) => {
     const newAddress = {
-      cep: formikProps.values.cep,
+      cep: formikProps.values.cep.replaceAll("-",""),
       cidade: formikProps.values.localidade,
       complemento: formikProps.values.complemento,
       estado: formikProps.values.uf,
@@ -146,7 +153,7 @@ export const Address: React.FC<{}> = () => {
     try {
       const { data } = await api.put("/endereco/650", newAddress);
       console.log(data);
-      alert("cadastro realizado com sucesso");
+      Notiflix.Notify.success("cadastro realizado com sucesso");
       formikProps.resetForm();
     } catch (error) {
       console.log(error);
@@ -375,7 +382,7 @@ export const Address: React.FC<{}> = () => {
                 <Tr>
                   <Th>Rua:</Th>
                   <Th>Número:</Th>
-                  <Th>Complemento:</Th>
+                  <Th>Cep:</Th>
                   <Th>Cidade:</Th>
                   <Th>Estado:</Th>
                   <Th>País:</Th>
@@ -388,7 +395,7 @@ export const Address: React.FC<{}> = () => {
                   <Tr key={e.idEndereco}>
                     <TdNome>{e.logradouro}</TdNome>
                     <Td>{e.numero}</Td>
-                    <Td>{e.complemento}</Td>
+                    <Td>{e.cep}</Td>
                     <Td>{e.cidade}</Td>
                     <Td>{e.estado}</Td>
                     <Td>{e.pais}</Td>

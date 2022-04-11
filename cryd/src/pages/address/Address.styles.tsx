@@ -3,14 +3,16 @@ import { AiOutlineDelete } from 'react-icons/ai';
 import { BsPencil } from 'react-icons/bs';
 
 export const ContainerAddress = styled.div`
-    width: 85%;
+    width: 1000px;
 `
 export const ContainerListAddress = styled.div`
-    width: 85%;
+    width: 1000px;
 `
 
 export const ContainerAddressPage = styled.div`
     display: flex;
+    width: 1000px;
+    margin-left: 50px;
     
 `
 export const AiOutlineDeleteStyled = styled(AiOutlineDelete)`
@@ -30,7 +32,7 @@ font-size: 20px;
 export const ContainerForm = styled.div`
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 1000px;
     border: 1px solid rgba(223, 224, 235, 1); 
     border-radius: 8px;
     justify-content: center;
@@ -51,6 +53,7 @@ export const DivGrid = styled.div`
         margin: 15px;
     }
     justify-content: space-between;
+    margin-right: 20px;
     
 `
 export const DivInputs = styled.div`

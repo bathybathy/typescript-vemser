@@ -4,7 +4,7 @@ import logovemser from '../../images/logovemser.png'
 import { FaHome, FaUsers, FaMapMarkedAlt } from 'react-icons/fa';
 
 export const HeaderSide = styled.header`
-    width: 20%;
+    width: 200px;
     min-height: 100vh;
     background-color: rgba(54, 55, 64, 1);
 `

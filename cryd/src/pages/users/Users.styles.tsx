@@ -3,17 +3,20 @@ import styled from "styled-components";
 export const ContainerUsers = styled.div`
     display: flex;
     flex-direction: column;
+    width: 1000px;
+    
 `
 
 export const ContainerList = styled.div`
-    width: 80%;
+    width: 1000px;
     border: 1px solid rgba(223, 224, 235, 1); 
     border-radius: 8px;
     display: flex;
     justify-content: center;
+    
 `
 export const DivTitle = styled.div`
-    width: 85%;
+    width: 1000px;
 `
 export const TitleUsers = styled.h1`
     font-size: 24px;

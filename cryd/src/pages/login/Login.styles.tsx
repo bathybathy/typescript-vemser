@@ -8,6 +8,7 @@ export const ContainerBackground = styled.div`
     justify-content: center;
     min-height: 100vh;
     background-color: rgba(54, 55, 64, 1);
+    min-width: 100%;
     
 `;
 
